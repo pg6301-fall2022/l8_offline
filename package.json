@@ -4,6 +4,12 @@
   "description": "* [ ] Basic setup * [ ] Basic server * [ ] Basic client * [ ] Add use loader functionality * [ ] Display movies from server * [ ] Add fetchData from server * [ ] Separate the MovieAPI from the rest of the server * [ ] MongoDB",
   "main": "index.js",
   "scripts": {
+    "build:client": "cd client && npm run build",
+    "build:server": "cd server && npm run build",
+    "build": "npm run build:client && npm run build:server",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "dev": "npm run dev:server && npm run dev:client",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
