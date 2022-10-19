@@ -1,8 +1,8 @@
 ### Lecture 8 plan
 
-* [ ] Basic setup
-* [ ] Basic server
-* [ ] Basic client
+* [x] Basic setup
+* [x] Basic server
+* [x] Basic client
 * [ ] Add use loader functionality
 * [ ] Display movies from server
 * [ ] Add fetchData from server
