@@ -1,0 +1,15 @@
+{
+  "name": "l8_offline",
+  "version": "1.0.0",
+  "description": "* [ ] Basic setup * [ ] Basic server * [ ] Basic client * [ ] Add use loader functionality * [ ] Display movies from server * [ ] Add fetchData from server * [ ] Separate the MovieAPI from the rest of the server * [ ] MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.4.0"
+  }
+}
