@@ -21,6 +21,33 @@ function FrontPage() {
     );
 }
 
+
+function ListMovies() {
+    const { loading, error, data } = ""; // get the current status
+
+    if(loading) {
+        return <div> Still Loading... </div>
+    }
+
+    if(error) {
+        return (
+            <div>
+                <h1>Error</h1>
+                <div>{error.toString()}</div>
+            </div>
+        );
+    }
+
+    return (
+      <div>
+          <h1> Movies to get back to: </h1>
+          {data.map((movie) => (
+              <div key={movie.title}> {movie.title} </div>
+          ))}
+      </div>
+    );
+}
+
 function Movies(){
     return(
         <Routes>
