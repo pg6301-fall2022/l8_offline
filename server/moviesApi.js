@@ -15,10 +15,20 @@ const movies = [
 
 ];
 
-export function MoviesApi() {
+export function MoviesApi(db) {
     const api = express.Router();
+    console.log(db)
+    api.get("/", async (req, res) => {
+        //res.json(movies);
+        console.log(db);
+        const collection = await db.collection("movies");
+        console.log(collection);
+        const movies = await db
+            .collection("movies")
+            .find({})
+            .map(({ title, plot }) => ({ title, plot }))
+            .toArray();
 
-    api.get("/", (req, res) => {
         res.json(movies);
     });
 

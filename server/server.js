@@ -17,12 +17,10 @@ if(mongodburl) {
         .connect()
         .then((conn) =>
         app.use("/api/movies",
-            MovieApi(conn.db(process.env.MONGODB_DATABASE || "movie-reference "))
+            MoviesApi(conn.db(process.env.MONGODB_DATABASE || "movies-example"))
         )
     );
 }
-
-app.use("/api/movies", MoviesApi());
 
 app.use(express.static("../client/dist"));
 app.use((req, res, next) => {
