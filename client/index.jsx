@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+    Link,
+    useNavigate
+} from "react-router-dom";
 
 const element = document.getElementById("app");
 const root = createRoot(element);
@@ -21,12 +27,18 @@ function FrontPage() {
     );
 }
 
-async function fetchJSON(url) {
-    const res = await fetch(url);
+async function fetchJSON(url, options = {}) {
+    const res = await fetch(url, {
+        method: options.method || "get",
+        headers: options.json ? {"content-type" : "application/json" } : {},
+        body: options.json && JSON.stringify(options.json),
+    });
     if(!res.ok){
         throw new Error(`Failed ${res.status} :  ${(await res).statusText}`);
     }
-    return await res.json();
+    if(res.status === 200){
+        return await res.json();
+    }
 }
 
 function useLoader(loadingFunction) {
@@ -78,11 +90,50 @@ function ListMovies() {
     );
 }
 
+function AddMovie() {
+    const [title, setTitle] = useState("");
+    const [plot, setPlot] = useState("");
+    const [year, setYear] = useState("");
+    const navigate = useNavigate();
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        await fetchJSON("/api/movies", {
+           method: "post",
+           json: { title, year, plot },
+        });
+
+        setTitle("");
+        setPlot("");
+        setYear("");
+        navigate("/");
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <h1> Submit new Movie </h1>
+            <div>
+                Title:
+                <input value={title} onChange={(e) => setTitle(e.target.value)} />
+            </div>
+            <div>
+                Year:
+                <input value={year} onChange={(e) => setYear(e.target.value)} />
+            </div>
+            <div>
+                Plot:
+                <textarea value={plot} onChange={(e) => setPlot(e.target.value)} />
+            </div>
+            <button> Submit </button>
+        </form>
+    );
+}
+
 function Movies(){
     return(
         <Routes>
             <Route path={"/list"} element={<ListMovies />} />
-            <Route path={"/new"} element={<h1> Add new Movie </h1>} />
+            <Route path={"/new"} element={<AddMovie />} />
         </Routes>
     );
 }
