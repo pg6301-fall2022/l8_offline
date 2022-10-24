@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+
 const element = document.getElementById("app");
 const root = createRoot(element);
 
@@ -89,7 +90,11 @@ function ListMovies() {
             <h1> Movies to come back to: </h1>
             {
                 data.map( (movie) => (
-                    <div key={movie.title}> {movie.title} </div>
+                    <div key={movie.title}> <h1> {movie.title} -> ({movie.year}) </h1>
+                    <div>
+                        {movie.plot}
+                    </div>
+                    </div>
                     ))}
 
         </div>
