@@ -1,10 +1,9 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom"
 import {createRoot} from "react-dom/client";
 import { act, Simulate } from "react-dom/test-utils";
 import { AddMovie } from "../addMovie.jsx";
 import { MemoryRouter } from "react-router-dom";
-import {fetchJSON} from "../fetchJSON.jsx";
+import { MovieApiContext } from "../movieApiContext.jsx";
 
 describe("add movie tests", () => {
     it("shows form", async () => {
@@ -14,7 +13,7 @@ describe("add movie tests", () => {
        await act(async () => {
            root.render(
             <MemoryRouter>
-               <AddMovie />
+                <AddMovie />
             </MemoryRouter>
            );
        });
@@ -35,15 +34,22 @@ describe("add movie tests", () => {
        await act( async () =>
             root.render(
             <MemoryRouter>
-                <AddMovie movieApi={{ createMovie }} />
+                <MovieApiContext.Provider value={{ createMovie }}>
+                    <AddMovie />
+                </MovieApiContext.Provider>
             </MemoryRouter>
             )
        );
 
        act ( () =>
-       Simulate.change(element.querySelector("form input"), {
+       Simulate.change(element.querySelector("form div:nth-of-type(1) input"), {
           target: { value: "Movie Title" },
        }));
+
+       act( () =>
+        Simulate.change(element.querySelector("form div:nth-of-type(2) input"), {
+            target: { value: "2022" },
+        }));
 
         act ( () =>
             Simulate.submit(element.querySelector("form"))
@@ -51,7 +57,7 @@ describe("add movie tests", () => {
 
        expect(createMovie).toBeCalledWith({
           title: "Movie Title",
-          year: "",
+          year: 2022,
           plot: "",
        });
 

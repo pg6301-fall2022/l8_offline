@@ -1,8 +1,9 @@
 import * as React from "react"
 import {createRoot} from "react-dom/client";
 import { act } from "react-dom/test-utils";
+import { MovieApiContext } from "../movieApiContext.jsx";
 
-import {Movies, FrontPage, Application, ListMovies} from "../Movies.jsx";
+import { ListMovies } from "../Movies.jsx";
 
 const movies = [
     {
@@ -17,58 +18,39 @@ const movies = [
     }
 ]
 
+async function renderListMovies(listMovies) {
+    const element = document.createElement("div");
+    const root = createRoot(element);
+
+    await act(async () =>
+        root.render(
+            <MovieApiContext.Provider value={{ listMovies }}>
+                <ListMovies />
+            </MovieApiContext.Provider>
+        )
+    );
+    return element;
+}
+
 describe("client test suite", () => {
 
-    it("basic test", () => {
-        const element = document.createElement("div");
-        const root = createRoot(element);
-
-        act(() => root.render(
-            <Application/>
-        ));
-        expect(element.querySelector("h1")?.innerHTML).toEqual(" Back to the movies ");
-
-    });
-
-    it("show loading screen", () => {
-        const element = document.createElement("div");
-        const root = createRoot(element);
-
-        act(() => root.render(
-            <ListMovies movieApi={{listMovies: () => movies}}/>
-        ));
+    it("show loading screen", async () => {
+        const element = await renderListMovies(() => new Promise(() => {}));
 
         expect(element.querySelector(".loading-indicator")).not.toBeNull();
         expect(element.innerHTML).toMatchSnapshot();
     });
 
     it("shows movies list", async () => {
-        const element = document.createElement("div");
-        const root = createRoot(element);
-
-        await act(async () => {
-            root.render(
-                <ListMovies movieApi={{listMovies: () => movies}}/>
-            );
-        });
+        const element = await renderListMovies(async () => movies);
 
         expect(element.querySelector("h3").innerHTML).toEqual(` ${movies[0].title} - ${movies[0].year} `);
         expect(element.innerHTML).toMatchSnapshot();
     });
 
     it("shows error message", async () => {
-        const element = document.createElement("div");
-        const root = createRoot(element);
-
-        await act(async () => {
-            root.render(
-                <ListMovies
-                    movieApi={{
-                        listMovies: () => {
-                            throw new Error("Failed to fetch");
-                        },
-                    }}/>
-            );
+        const element = await renderListMovies(async () => {
+           throw new Error("Failed to fetch");
         });
 
         expect(element.querySelector(".error-message").innerHTML)

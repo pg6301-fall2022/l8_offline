@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useNavigate} from "react-router-dom";
-import {fetchJSON} from "./fetchJSON.jsx";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { MovieApiContext } from "./movieApiContext.jsx";
 
 
 function FormInput({value, label, onChangeValue}) {
@@ -15,15 +15,19 @@ function FormInput({value, label, onChangeValue}) {
     );
 }
 
-export function AddMovie({ movieApi }){
-    const [title, setTitle] = useState("");
-    const [year, setYear] = useState("");
-    const [plot, setPlot] = useState("");
+export function AddMovie(){
+    const { createMovie } = useContext(MovieApiContext);
     const navigate = useNavigate();
+
+    const [title, setTitle] = useState("");
+    const [yearInput, setYearInput] = useState("");
+    const [plot, setPlot] = useState("");
+
 
     async function handleSubmit(e){
         e.preventDefault();
-        movieApi.createMovie({ title, year, plot });
+        const year = parseInt(yearInput);
+        createMovie({ title, year, plot });
         navigate("/");
     }
 
@@ -31,7 +35,7 @@ export function AddMovie({ movieApi }){
         <form onSubmit={handleSubmit}>
             <h1> Submit new movie </h1>
             <FormInput label="Title:" value={title} onChangeValue={setTitle}/>
-            <FormInput label="Year:" value={year} onChangeValue={setYear}/>
+            <FormInput label="Year:" value={yearInput} onChangeValue={setYearInput}/>
             <FormInput label="Plot:" value={plot} onChangeValue={setPlot}/>
             <button> Submit </button>
         </form>
