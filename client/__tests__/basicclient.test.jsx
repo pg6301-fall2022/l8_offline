@@ -1,7 +1,8 @@
 import * as React from "react"
-import {createRoot} from "react-dom";
+import {createRoot} from "react-dom/client";
+import { act } from "react-dom/test-utils";
 
-import { FrontPage } from "../index.jsx"
+import { Movies, FrontPage } from "../Movies";
 
 describe("client test suite", () =>{
 
@@ -10,11 +11,9 @@ describe("client test suite", () =>{
 
        const root = createRoot(element);
 
-       act( () => {
-           root.render(
+       act(() => root.render(
            <FrontPage />
-           )
-       });
+       ));
 
 
        expect(element.querySelector("h1")?.innerHTML).toEqual(" Back to the movies ");
