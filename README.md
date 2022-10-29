@@ -10,10 +10,10 @@
 * [x] MongoDB
 
 ### Lecture 9 - plan
-* [ ] Add basic test support to our project
-  * [ ] Add test libraries
-  * [ ] Add basic tests
-  * [ ] Assess coverage
+* [x] Add basic test support to our project
+  * [x] Add test libraries
+  * [x] Add basic tests
+  * [x] Assess coverage
 * [ ] Add filtering and sorting
 * [ ] Add DELETE and PUT
 * [ ] Tests 
