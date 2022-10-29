@@ -22,7 +22,14 @@ export function FrontPage() {
 }
 
 
-
+function MovieCard( { movie: { title, plot, year } }) {
+    return(
+        <>
+            <h3> {title} - {year} </h3>
+            <div> {plot} </div>
+        </>
+    );
+}
 
 
 export function ListMovies({ movieApi }) {
@@ -48,11 +55,7 @@ export function ListMovies({ movieApi }) {
             <h1> Movies to come back to: </h1>
             {
                 data.map( (movie) => (
-                    <div key={movie.title}> <h1> {movie.title} -> ({movie.year}) </h1>
-                        <div>
-                            {movie.plot}
-                        </div>
-                    </div>
+                    <MovieCard key={movie.title} movie={movie} />
                 ))}
 
         </div>
