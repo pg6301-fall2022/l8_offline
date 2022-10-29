@@ -25,10 +25,10 @@ export function FrontPage() {
 
 
 
-export function ListMovies() {
-    const { loading, error, data } = useLoader(async () => {
-        return fetchJSON("/api/movies");
-    });
+export function ListMovies({ movieApi }) {
+    const { loading, error, data } = useLoader(async () =>
+        movieApi.listMovies()
+    );
 
     if(loading) {
         return <div> Still Loading... </div>
@@ -100,21 +100,27 @@ function AddMovie(){
 }
 
 
-export function Movies(){
+export function Movies({ movieApi }){
     return(
         <Routes>
-            <Route path={"/list"} element={<ListMovies />} />
+            <Route path={"/list"} element={<ListMovies movieApi={movieApi}/>} />
             <Route path={"/new"} element={<AddMovie />} />
         </Routes>
     );
 }
 
 export function Application() {
+    const movieApi = {
+      async listMovies() {
+        return fetchJSON("/api/movies");
+      },
+    };
+
     return(
         <BrowserRouter>
             <Routes>
                 <Route path={"/"} element={<FrontPage />} />
-                <Route path={"/movies/*"} element={<Movies />}/>
+                <Route path={"/movies/*"} element={<Movies movieApi={movieApi}/>}/>
             </Routes>
         </BrowserRouter>
     );
