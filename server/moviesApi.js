@@ -1,28 +1,13 @@
 import express from "express";
 
-// temporary local storage
-const movies = [
-    {
-        title : "Plan 9",
-        year: "1957",
-        plot: "confused",
-    },
-    {
-        title: "Dune",
-        year: "2021",
-        plot: "Arrakis, Dune, desert planet"
-    },
-
-];
 
 export function MoviesApi(db) {
     const api = express.Router();
     console.log(db)
     api.get("/", async (req, res) => {
-        //res.json(movies);
-        console.log(db);
-        const collection = await db.collection("movies");
-        console.log(collection);
+
+        //filter goes here?
+
         const movies = await db
             .collection("movies")
             .find({})
@@ -34,7 +19,7 @@ export function MoviesApi(db) {
 
     api.post("/", (req, res) => {
         const { title, plot, year } = req.body;
-        movies.push( { title, plot, year });
+
         db.collection("movies").insertOne({ title, plot, year });
         res.sendStatus(204);
     });
