@@ -8,6 +8,8 @@ import dotenv from "dotenv";
 const app = express();
 app.use(bodyParser.json());
 
+app.use("/api/movies", MoviesApi);
+
 describe("movies api test suite", () => {
     it("does something", async () => {
        const agent = request.agent(app);
