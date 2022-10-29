@@ -17,6 +17,9 @@
     "verify:client": "cd client && npm run verify",
     "verify": "npm run verify:server && npm run verify:client"
   },
+  "repository": {
+    "type": "git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
