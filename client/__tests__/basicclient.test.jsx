@@ -2,7 +2,7 @@ import * as React from "react"
 import {createRoot} from "react-dom/client";
 import { act } from "react-dom/test-utils";
 
-import { Movies, FrontPage } from "../Movies";
+import {Movies, FrontPage, Application} from "../Movies";
 
 describe("client test suite", () =>{
 
@@ -12,7 +12,7 @@ describe("client test suite", () =>{
        const root = createRoot(element);
 
        act(() => root.render(
-           <FrontPage />
+           <Application />
        ));
 
 
