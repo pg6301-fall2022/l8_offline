@@ -1,9 +1,11 @@
+import * as React from "react";
 import {BrowserRouter, Link, Route, Routes, useNavigate} from "react-router-dom";
 import {useState} from "react";
-import * as React from "react";
+
 
 import { useLoader } from "./useLoader.jsx";
 import { fetchJSON } from "./fetchJSON.jsx";
+import { AddMovie } from "./addMovie.jsx";
 
 export function FrontPage() {
     return(
@@ -62,52 +64,11 @@ export function ListMovies({ movieApi }) {
     );
 }
 
-function AddMovie(){
-    const [title, setTitle] = useState("");
-    const [year, setYear] = useState("");
-    const [plot, setPlot] = useState("");
-    const navigate = useNavigate();
-
-    async function handleSubmit(e){
-        e.preventDefault();
-
-        await fetchJSON("/api/movies", {
-            method: "post",
-            json: { title, year, plot },
-        });
-
-        setTitle("");
-        setYear("");
-        setPlot("");
-        navigate("/");
-    }
-
-    return(
-        <form onSubmit={handleSubmit}>
-            <h1> Submit new movie </h1>
-            <div>
-                Title:
-                <input value={title} onChange={(e) => setTitle(e.target.value)} />
-            </div>
-            <div>
-                Year:
-                <input value={year} onChange={(e) => setYear(e.target.value)} />
-            </div>
-            <div>
-                Plot:
-                <textarea value={plot} onChange={(e) => setPlot(e.target.value)} />
-            </div>
-            <button> Submit </button>
-        </form>
-    );
-}
-
-
 export function Movies({ movieApi }){
     return(
         <Routes>
             <Route path={"/list"} element={<ListMovies movieApi={movieApi}/>} />
-            <Route path={"/new"} element={<AddMovie />} />
+            <Route path={"/new"} element={<AddMovie movieApi={movieApi}/>} />
         </Routes>
     );
 }
@@ -117,6 +78,15 @@ export function Application() {
       async listMovies() {
         return fetchJSON("/api/movies");
       },
+      async createMovie(movie){
+        fetch("/api/movies",{
+           method: "post",
+           body: JSON.stringify(movie),
+           headers:{
+               "content-type": "application/json",
+           },
+        });
+      }
     };
 
     return(
