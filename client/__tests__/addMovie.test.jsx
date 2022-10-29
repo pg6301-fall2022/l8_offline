@@ -1,15 +1,10 @@
-import React from "react";
-import * as router from "react-router";
+import * as React from "react";
+import * as ReactDOM from "react-dom"
 import {createRoot} from "react-dom/client";
 import { act, Simulate } from "react-dom/test-utils";
 import { AddMovie } from "../addMovie.jsx";
-
-
-const navigate = jest.fn()
-
-beforeEach(() => {
-    jest.spyOn(router, 'useNavigate').mockImplementation(() => navigate);
-});
+import { MemoryRouter } from "react-router-dom";
+import {fetchJSON} from "../fetchJSON.jsx";
 
 describe("add movie tests", () => {
     it("shows form", async () => {
@@ -17,7 +12,11 @@ describe("add movie tests", () => {
        const root = createRoot(element);
 
        await act(async () => {
-           root.render(<AddMovie />);
+           root.render(
+            <MemoryRouter>
+               <AddMovie />
+            </MemoryRouter>
+           );
        });
        expect(element.innerHTML).toMatchSnapshot();
 
@@ -28,19 +27,27 @@ describe("add movie tests", () => {
     });
 
     it("submits form", async () => {
-       const createMovie = jest.fn();
+        const createMovie = jest.fn();
 
        const element = document.createElement("div");
        const root = createRoot(element);
 
        await act( async () =>
-            root.render(<AddMovie movieApi={{createMovie}} />)
+            root.render(
+            <MemoryRouter>
+                <AddMovie movieApi={{ createMovie }} />
+            </MemoryRouter>
+            )
        );
 
+       act ( () =>
        Simulate.change(element.querySelector("form input"), {
-          target: {value: "Movie Title" },
-       });
-       Simulate.submit(element.querySelector("form"));
+          target: { value: "Movie Title" },
+       }));
+
+        act ( () =>
+            Simulate.submit(element.querySelector("form"))
+        );
 
        expect(createMovie).toBeCalledWith({
           title: "Movie Title",

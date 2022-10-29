@@ -86,7 +86,7 @@ export function Application() {
                "content-type": "application/json",
            },
         });
-      }
+      },
     };
 
     return(
