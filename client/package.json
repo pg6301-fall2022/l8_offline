@@ -38,7 +38,10 @@
       "IS_REACT_ACT_ENVIRONMENT": true
     },
     "collectCoverageFrom": [
-      "*.jsx"
+      "**/*.{jsx,js}",
+      "!index.jsx",
+      "!coverage/**",
+      "!dist/**"
     ]
   }
 }

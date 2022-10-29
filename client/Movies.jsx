@@ -3,7 +3,7 @@ import {useState} from "react";
 import * as React from "react";
 
 import { useLoader } from "./useLoader.jsx";
-import { fetchJSON } from "./http.js";
+import { fetchJSON } from "./fetchJSON.jsx";
 
 export function FrontPage() {
     return(

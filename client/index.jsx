@@ -7,7 +7,7 @@ import {
     Link, useNavigate
 } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Application } from "./Movies.js";
+import { Application } from "./Movies.jsx";
 
 const element = document.getElementById("app");
 const root = createRoot(element);
