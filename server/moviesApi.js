@@ -9,6 +9,7 @@ export function MoviesApi(db){
             .collection("movies")
             .find({})
             .map(({ title, year, plot }) => ({ title, year, plot }))
+            .limit(100)
             .toArray();
 
         res.json(movies);

@@ -38,14 +38,14 @@ export function ListMovies({ movieApi }) {
     );
 
     if(loading) {
-        return <div> Still Loading... </div>
+        return <div className="loading-indicator"> Still Loading... </div>
     }
 
     if(error) {
         return (
             <div>
                 <h1> Error </h1>
-                <div> {error.toString()} </div>
+                <div className="error-message"> {error.toString()} </div>
             </div>
         );
     }
