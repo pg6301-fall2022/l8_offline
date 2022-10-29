@@ -5,7 +5,8 @@ on:
   push:
     branches:
       - main
-      - master
+      - l9_offline
+      - l9_livecode
 
 jobs:
   test:
@@ -16,7 +17,7 @@ jobs:
       - uses: actions/setup-node@v3
       - run: npm ci
       - run: npm run verify
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
+      - name: Collect coverage
+        uses: ArtiomTr/jest-coverage-report-action@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          coverage-file: ./client/coverage/lcov.info
