@@ -22,3 +22,12 @@
     * [ ] Structure
     * [ ] Snapshot
     * [ ] Simulate
+
+Tests libraries
+* Backend
+  * jest, supertest, babel-jest, @babel/preset-env
+* Frontend
+  * jest
+  * babel-jest, @babel/preset-env, @babel/preset-react
+  * jsdom, jest-environment-jsdom
+  * @types/jest, @types/react, @types/react-dom
