@@ -6,17 +6,43 @@
   "scripts": {
     "build": "parcel build index.html",
     "dev": "parcel watch index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "verify": "jest --collectCoverage"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "^2.7.0"
+    "@babel/preset-env": "^7.19.4",
+    "@babel/preset-react": "^7.18.6",
+    "@types/jest": "^29.2.0",
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "babel-jest": "^29.2.2",
+    "parcel": "^2.7.0",
+    "process": "^0.11.10"
   },
   "dependencies": {
+    "jest": "^29.2.2",
+    "jest-environment-jsdom": "^29.2.2",
+    "jsdom": "^20.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.2"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "globals": {
+      "IS_REACT_ACT_ENVIRONMENT": true
+    },
+    "collectCoverageFrom": [
+      "*.{jsx,js}"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
   }
 }
