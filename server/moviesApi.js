@@ -7,16 +7,24 @@ export function MoviesApi(db){
         //console.log(req.query);
         //console.log(req);
         const { titleSearch } = req.query;
-        const filter = {};
+        let filter = {};
         //console.log(`year is ${year}`);
 
-        if(titleSearch!=='undefined' && titleSearch!=='' && titleSearch){
-            //console.log("Title: " + titleSearch);
+        if(titleSearch!=='undefined'
+            && titleSearch!==''
+            && titleSearch!==""
+            && titleSearch){
+            console.log("Title: " + titleSearch);
             //console.log(titleSearch!=='undefined');
             //filter.year = {year : { $gte: yearInt } };
             //filter.year = {$regex: /2.*/};
             //filter.title = {$regex: "(.*)" + input + "(.*)", $options: 'i'};
-            filter.title = {$regex: "(.*)" + titleSearch + "(.*)", $options: 'i'}
+            filter = {
+                "$or": [
+                    {title: { '$regex': "(.*)" + titleSearch + "(.*)", '$options': 'i' }},
+                    {plot: { '$regex': "(.*)" + titleSearch + "(.*)", '$options': 'i' }}
+                ]
+            }
         }
 
         console.log(filter);
