@@ -26,7 +26,7 @@ If you're smart, you construct the code of your app so that everything that has 
 
 ## Checklist of technologies you should include in your application
 
-* [ ] Logon with Active Directory
+* [ ] Some form of Login and access control
 * [ ] Jest tests
     * [ ] Snapshot tests
     * [ ] Simulate + jest.fn
