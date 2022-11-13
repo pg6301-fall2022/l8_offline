@@ -7,7 +7,19 @@ export function MoviesApi(db){
 
         const movies = await db
             .collection("movies")
-            .find({})
+            .find(
+                // {year: {$in: [/^196.*/]}}  // pattern
+                // {year: {$regex: /2.*/}}     // regex
+                {}
+            ).limit(100)
+            //.findOne(
+            //    {
+            //        $or: [
+            //            { 'title' : /^T/ },
+            //            { 'year' : /^2/}
+            //        ]
+            //    }
+            //);
             .map(({ title, year, plot }) => ({ title, year, plot }))
             .toArray();
 

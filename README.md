@@ -11,10 +11,10 @@
 
 ### Lecture 9 plan
 
-* [ ] Add basic test support
-* [ ] Tests
-  * [ ] Backend
-  * [ ] Frontend - Structure
-  * [ ] Frontend - Snapshot
-  * [ ] Frontend - simulate
+* [x] Add basic test support
+* [x] Tests
+  * [x] Backend
+  * [x] Frontend - Structure
+  * [x] Frontend - Snapshot
+  * [x] Frontend - simulate
 * [ ] Some filtering and sorting
