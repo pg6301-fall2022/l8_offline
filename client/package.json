@@ -4,7 +4,7 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "build": "parcel build index.html",
+    "build": "npm install && parcel build index.html",
     "dev": "parcel watch index.html",
     "test": "jest",
     "verify": "jest --collectCoverage"

@@ -1,10 +1,8 @@
 import * as React from "react";
 import {BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import {useContext, useState} from "react";
-import { MovieApiContext } from "./movieApiContext.jsx";
 
-import { useLoader } from "./useLoader.jsx";
 import { AddMovie } from "./addMovie.jsx";
+import { ListMovies } from "./listMovies.jsx";
 
 export function FrontPage() {
     return(
@@ -18,56 +16,6 @@ export function FrontPage() {
                     <Link to={"/movies/new"}> Add new Movie </Link>
                 </li>
             </ul>
-        </div>
-    );
-}
-
-
-function MovieCard( { movie: { title, plot, year } }) {
-    return(
-        <>
-            <h3> {title} - {year} </h3>
-            <div> {plot} </div>
-        </>
-    );
-}
-
-
-export function ListMovies() {
-    const { listMovies } = useContext(MovieApiContext);
-    const [year, setYear] = useState();
-    const [yearInput, setYearInput] = useState("");
-    const { loading, error, data } = useLoader(
-        async () => listMovies(year),
-        [year]
-    );
-
-    if(loading) {
-        return <div className="loading-indicator"> Still Loading... </div>
-    }
-
-    if(error) {
-        return (
-            <div>
-                <h1> Error </h1>
-                <div className="error-message"> {error.toString()} </div>
-            </div>
-        );
-    }
-
-    return (
-        <div>
-            <h1> Movies to come back to: </h1>
-            <div>
-                <label> Search by year: </label>
-                <input value={yearInput} onChange={(e) => setYearInput(e.target.value)} />
-                <button onClick={() => setYear(yearInput)}> Search </button>
-            </div>
-
-            {data.map( (movie) => (
-                <MovieCard key={movie.title} movie={movie} />
-            ))}
-
         </div>
     );
 }

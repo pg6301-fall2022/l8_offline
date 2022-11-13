@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
- export function useLoader(loadingFunction){
+ export function useLoader(loadingFunction, deps = []){
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
     const [data, setData] = useState();
@@ -18,7 +18,9 @@ import {useEffect, useState} from "react";
         }
     }
 
-    useEffect(() => load(), []);
+    useEffect(() => {
+            load();
+        }, deps);
 
-    return { loading, error, data };
+    return { loading, error, data, reload: load };
 }

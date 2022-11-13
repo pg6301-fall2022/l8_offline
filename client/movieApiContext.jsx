@@ -2,8 +2,8 @@ import React from "react";
 import { fetchJSON } from "./fetchJSON.jsx";
 
 export const MovieApiContext = React.createContext({
-    async listMovies(year){
-        return fetchJSON(`/api/movies?year=${year}`);
+    async listMovies(title){
+        return await fetchJSON(`/api/movies?titleSearch=${title}`);
     },
     async createMovie(movie){
       fetch("/api/movies", {
